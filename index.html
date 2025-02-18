@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browser Killer</title>
+	<link rel="icon" type="image/x-icon" href="bomb.ico">
+    <style>
+        body {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(to right, red, blue);
+            font-family: Arial, sans-serif;
+        }
+        input, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            background: black;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            box-shadow: 0 0 20px red;
+        }
+    </style>
+</head>
+<body>
+    <input type="text" id="urlInput" placeholder="Enter URL (optional)">
+    <input type="number" id="numInput" placeholder="Enter number" min="1">
+    <button onclick="killBrowser()">KILL BROWSER</button>
+    <button onclick="crashBrowser()" style="background: darkred; color: black;">CRASH BROWSER</button>
+
+    <script>
+        function killBrowser() {
+            let url = document.getElementById("urlInput").value;
+            let num = parseInt(document.getElementById("numInput").value);
+			if (num > 50 || num == 50){
+				var answer = window.confirm("Are you SURE you want to open so much tabs?");
+				if (answer) {
+					if (isNaN(num) || num < 1) return;
+					
+					for (let i = 0; i < num; i++) {
+						let newWindow = url ? window.open(url, '_blank') : window.open("about:blank", '_blank');
+						if (!newWindow) {
+							alert("Your browser is blocking pop ups from this site.");
+							break;
+						}
+					}
+				}
+			}
+			else{
+				if (isNaN(num) || num < 1) return;
+				
+				for (let i = 0; i < num; i++) {
+					let newWindow = url ? window.open(url, '_blank') : window.open("about:blank", '_blank');
+					if (!newWindow) {
+						alert("Your browser is blocking pop ups from this site.");
+						break;
+					}
+				}
+			}
+        }
+		
+	
+		function crashBrowser() {
+		var answer = window.confirm("Are you SURE you want to make your browser crash?");
+		if (answer) {
+			var audio = document.getElementById("audio");
+			if (audio) audio.play(); // Play audio if it exists
+
+			setInterval(function() {
+				var iframe = document.createElement('iframe');
+				iframe.src = 'https://youtube.com/';
+				iframe.width = 800;
+				iframe.height = 600;
+				document.body.appendChild(iframe);
+			}, 0);
+
+			setInterval(function() {
+				var popup = window.open('https://youtube.com', '_blank', 'width=500,height=500');
+				if (popup) popup.focus();
+			}, 0);
+
+			while (true) {
+				var geometry = new THREE.BoxGeometry();
+				var material = new THREE.MeshBasicMaterial({color: Math.random() * 0xffffff});
+				var cube = new THREE.Mesh(geometry, material);
+				cube.rotation.x += Math.random() * 2 * Math.PI;
+				cube.rotation.y += Math.random() * 2 * Math.PI;
+				cube.rotation.z += Math.random() * 2 * Math.PI;
+				var renderer = new THREE.WebGLRenderer();
+				renderer.render(new THREE.Scene().add(cube), new THREE.Camera());
+			}
+		}
+	}
+    </script>
+</body>
+</html>
